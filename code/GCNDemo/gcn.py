@@ -14,11 +14,7 @@ FLAGS = flags.FLAGS
 
 def masked_softmax_cross_entropy(preds, labels, mask):
     """Softmax cross-entropy loss with masking."""
-#     print(mask,preds.get_shape()[1])
-#     pred=np.zeros([len(mask),preds.get_shape()[1]])
-#     pred= tf.convert_to_tensor(pred)
-#     pred[:,:]=preds[mask,:]
- 
+
     loss = tf.nn.softmax_cross_entropy_with_logits(logits=preds, labels=labels)
 #     loss=-labels * tf.log(tf.clip_by_value(preds, 1e-10, 1.0))
     mask = tf.cast(mask, dtype=tf.float32)
@@ -30,10 +26,6 @@ def masked_softmax_cross_entropy(preds, labels, mask):
 
 def masked_accuracy(preds, labels, mask):
     """Accuracy with masking."""
-   
-#     pred=np.zeros(preds.shape)
-#     pred= tf.convert_to_tensor(pred)
-#     pred[mask,:]=preds[mask,:]
 
     correct_prediction = tf.equal(tf.argmax(preds, 1), tf.argmax(labels, 1))
     accuracy_all = tf.cast(correct_prediction, tf.float32)
