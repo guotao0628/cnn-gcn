@@ -29,17 +29,7 @@ def sample_mask(idx, l):
 
 def load_data():
     adj,features,labels=Normal.loadData()
-#     print(adj.shape,features.shape,labels.shape)
-#     print(features)
-#     test_idx_reorder=[i for i in range(2569,3670)]
-   
-#     random.shuffle(test_idx_reorder)   
-#     test_idx_range = np.sort(test_idx_reorder) 
-#     features[test_idx_reorder, :] = features[test_idx_range, :]        
-#     labels[test_idx_reorder, :] = labels[test_idx_range, :]
-# 
-#     idx_test = test_idx_range
-#     idx_test=random.sample(num,120)
+
     idx_train = [i for i in range(615)]
     idx_val=[i for i in range(615,875)]
     idx_test=[i for i in range(615,875)]
@@ -50,14 +40,10 @@ def load_data():
     y_train = np.zeros(labels.shape)
     y_val = np.zeros(labels.shape)
     y_test = np.zeros(labels.shape)
-#     y_train = np.zeros([len(idx_train),labels.shape[1]])
-#     y_test = np.zeros([len(idx_test),labels.shape[1]])
+#    
     y_train[train_mask, :] = labels[train_mask, :]
     y_val[val_mask, :] = labels[val_mask, :]
     y_test[test_mask, :] = labels[test_mask, :]
-#     y_train[:,:]=labels[idx_train,:]
-#     y_test[:,:]=labels[idx_test,:]
-#     train_mask=idx_train
-#     test_mask=idx_test
+#     
     return adj, features, y_train,y_val,y_test, train_mask,val_mask,test_mask
 # load_data()
