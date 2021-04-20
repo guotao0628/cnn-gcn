@@ -36,25 +36,10 @@ def createLaplacian(Mat):
 def convert_to_one_hot(y, C):
     return np.eye(C)[y.reshape(-1)].T
 def loadData():
-#     A=pd.read_excel('../excel/features-corn.xlsx')
-#     A=np.array(A)
-#     labels=pd.read_excel('../excel/labelscorn.xlsx')
-#     labels=np.array(labels)
-#     adj=createAdj(A)
-#     A=pd.read_excel('../excel/Esc-animaldata.xlsx')
-#     A = np.array(A)
-#     x= scio.loadmat('melspectrograms/ResNet101_bot_melfea_pre_train.mat')
-#     print(x)
     x= scio.loadmat('melspectrograms/ResNet101_bot_melfea_pre_train.mat')['arry'][ : ,0:4096]
     tx= scio.loadmat('melspectrograms/ResNet101_bot_melfea_pre_test.mat')['arry'][ : ,0:4096]
     allx=np.vstack((x,tx))
-#     allx=scio.loadmat('melspectrograms/')['zongdata']
-#     print(allx.shape)
-#     ally=scio.loadmat('melspectrograms/zonglabel.mat')['zonglabel']
-#     print(ally.shape)
-#     ally=np.eye(ally.shape[1],10)[y][0]
-#     print(y[0])
-#     y=y.transpose()
+
     y=scio.loadmat('melspectrograms/trainlabel.mat')['arry']
     y=np.eye(y.shape[1],10)[y][0]
     ty=scio.loadmat('melspectrograms/testlabel.mat')['arry']
@@ -63,12 +48,7 @@ def loadData():
 # #     ty=ty.transpose()
     ally=np.vstack((y,ty))
     print(ally,ally.shape,allx,allx.shape)
-#     A=A['allvggmelfeature']
-#     labels=pd.read_excel('../excel/Esc-animallabel2.xlsx')
-#     labels = scio.loadmat('../excel/alllabel.mat')
-#     labels=np.array(labels)
-#     #labels = labels['a']
-#     print(A.shape[0])
+
     time_begin=time.localtime(time.time())
     print('begin time:','{0}-{1}-{2} {3}:{4}'.format(list(time_begin)[0],list(time_begin)[1],list(time_begin)[2],list(time_begin)[3],list(time_begin)[4]))
     adj=createAdj(allx)
@@ -76,10 +56,5 @@ def loadData():
     print('end time:','{0}-{1}-{2} {3}:{4}'.format(list(time_end)[0],list(time_end)[1],list(time_end)[2],list(time_end)[3],list(time_end)[4]))
     L=createLaplacian(adj)
     return L,allx,ally
-# A=createAdj(dataSets)
-# L=createLaplacian(A)
-# print(L[4,5],L[5,4])
-# L,A,labels=loadData()
-# print(L,A,labels)
+
 L,allx,ally=loadData()
-# print(L.shape,allx.shape,ally.shape )
